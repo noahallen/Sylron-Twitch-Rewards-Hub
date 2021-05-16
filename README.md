@@ -1,4 +1,4 @@
-# Sylron-Twitch-Rewards-Hub
+# Sylron Twitch Rewards Hub
 
 
 ## Dependencies 
