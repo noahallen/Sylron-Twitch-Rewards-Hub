@@ -2,7 +2,18 @@
 
 
 ## Dependencies 
-NodeJS
+[ComfyJS](https://github.com/instafluff/ComfyJS)
+
+npm install comfy.js --save
+
+
+[ColorNames](https://github.com/timoxley/colornames)
+
+npm install colornames
+
+
+
+
 
 ## Materials
 Raspberry Pi 3B+
@@ -17,5 +28,3 @@ Computer with streamlabs
 [Streamlabs API](https://dev.streamlabs.com/docs)
 
 [TWITCH API](https://dev.twitch.tv/docs/api/)
-
-

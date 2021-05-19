@@ -1,0 +1,59 @@
+<html>
+
+<head>
+    <script src="comfy.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/comfy.js@1.1.6/dist/comfy.min.js"></script> -->
+</head>
+
+<body>
+    <script type="text/javascript">
+        // // Authentication Instructions are at https://github.com/instafluff/ComfyJS#channel-point-reward-redemptions
+
+
+        var hostname = '127.0.0.1';
+        var port = '3000';
+        let twitchAuth;
+        let channel;
+        let clientId;
+
+
+
+        fetch("http://" + hostname + ":" + port + "/" + "getTokens")
+            .then(response => response.json())
+            .then(obj => {
+                twitchAuth = obj.results[0];
+                channel = obj.results[1];
+                clientId = obj.results[2];
+                try {
+                    ComfyJS.Init(channel, twitchAuth);
+                    (async () => {
+
+                        ComfyJS.onReward = async (user, reward, cost, extra) => {
+                            console.log(user + " redeemed " + reward + " for " + cost);
+                            handleRewards(reward);
+                        }
+                    })();
+                } catch (error) {
+
+                }
+            })
+            .catch(err => console.log(err));
+
+
+
+
+
+        // ComfyJS.onCommand = (user, command, message, flags, extra) => {
+        //     if (command === "test") {
+        //         console.log("!test was typed in chat");
+        //     }
+        // }
+
+
+    </script>
+    <script src="index.js">
+
+    </script>
+</body>
+
+</html>
