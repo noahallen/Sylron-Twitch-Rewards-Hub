@@ -10,15 +10,13 @@
         // // Authentication Instructions are at https://github.com/instafluff/ComfyJS#channel-point-reward-redemptions
 
 
-        var hostname = '127.0.0.1';
-        var port = '3000';
         let twitchAuth;
         let channel;
         let clientId;
 
 
 
-        fetch("http://" + hostname + ":" + port + "/" + "getTokens")
+        fetch("http://" + '127.0.0.1' + ":" + '3000' + "/" + "getTokens")
             .then(response => response.json())
             .then(obj => {
                 twitchAuth = obj.results[0];
