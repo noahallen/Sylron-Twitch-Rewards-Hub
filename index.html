@@ -2,19 +2,19 @@
 
 <head>
     <script src="comfy.min.js"></script>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/comfy.js@1.1.6/dist/comfy.min.js"></script> -->
 </head>
 
 <body>
     <script type="text/javascript">
         // // Authentication Instructions are at https://github.com/instafluff/ComfyJS#channel-point-reward-redemptions
 
+        function sleep(time) {
+            return new Promise((resolve) => setTimeout(resolve, time));
+        }
 
         let twitchAuth;
         let channel;
         let clientId;
-
-
 
         fetch("http://" + '127.0.0.1' + ":" + '3000' + "/" + "getTokens")
             .then(response => response.json())
@@ -22,30 +22,31 @@
                 twitchAuth = obj.results[0];
                 channel = obj.results[1];
                 clientId = obj.results[2];
-                try {
-                    ComfyJS.Init(channel, twitchAuth);
-                    (async () => {
+                ComfyJS.Init(channel, twitchAuth);
+                (async () => {
+                    ComfyJS.onReward = async (user, reward, cost, extra) => {
+                        console.log(user + " redeemed " + reward + " for " + cost);
+                        handleRewards(reward);
+                    }
+                })();
 
-                        ComfyJS.onReward = async (user, reward, cost, extra) => {
-                            console.log(user + " redeemed " + reward + " for " + cost);
-                            handleRewards(reward);
-                        }
-                    })();
-                } catch (error) {
-
-                }
             })
-            .catch(err => console.log(err));
+            .catch(err => {
+                console.log(err)
+                sleep(10000).then(() => {
+                    location.reload();
+                });
+            });
 
 
 
 
 
-        // ComfyJS.onCommand = (user, command, message, flags, extra) => {
-        //     if (command === "test") {
-        //         console.log("!test was typed in chat");
-        //     }
-        // }
+    // ComfyJS.onCommand = (user, command, message, flags, extra) => {
+    // if (command === "test") {
+    // console.log("!test was typed in chat");
+    // }
+    // }
 
 
     </script>

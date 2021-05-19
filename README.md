@@ -20,6 +20,12 @@ npm install colornames
 npm install dotenv
 ```
 
+[Node-Fetch](https://github.com/node-fetch/node-fetch)
+
+```
+npm install node-fetch
+```
+
 ## Materials
  - Raspberry Pi 3B+
 
