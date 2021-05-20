@@ -27,9 +27,9 @@ function handleRewards(reward, extra) {
             console.log("Custom lights redeemed")
             fetchToServer("custom/" + extra);
             break;
-        case "Change Lights to Green":
-            console.log("Green lights redeemed")
-            fetchToServer("green");
+        case "Change Lights to Custom Color":
+            console.log("Custom lights redeemed")
+            fetchToServer("custom/" + extra);
             break;
         default:
             console.log("Not handled")

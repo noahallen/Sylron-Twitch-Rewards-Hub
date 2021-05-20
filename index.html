@@ -27,8 +27,13 @@
                 ComfyJS.Init(channel, twitchAuth);
                 (async () => {
                     ComfyJS.onReward = async (user, reward, cost, extra) => {
-                        console.log(user + " redeemed " + reward + " for " + cost);
-                        document.getElementById("BodyID").innerHTML += user + " redeemed " + reward + " for " + cost + "<br/>";
+                        if (extra == "") {
+                            console.log(user + " redeemed " + reward + " for " + cost);
+                            document.getElementById("BodyID").innerHTML += user + " redeemed " + reward + " for " + cost + "<br/>";
+                        } else {
+                            console.log(user + " redeemed " + reward + ": " + extra + " for " + cost);
+                            document.getElementById("BodyID").innerHTML += user + " redeemed " + reward + ": " + extra + " for " + cost + "<br/>";
+                        }
                         handleRewards(reward, extra);
                     }
                 })();
