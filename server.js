@@ -63,6 +63,12 @@ const server = http.createServer((req, res) => {
             res.end(JSON.stringify({ 'results': searchResults }));
             console.log('Retrieved and sent');
         }
+        else if (requested_data[0] == "custom") {
+            var searchResults = "Color green set";
+            displayColor(requested_data[0]);
+            res.end(JSON.stringify({ 'results': searchResults }));
+            console.log('Retrieved and sent');
+        }
         //Send back error string
         else {
             var searchResults = "Input not recognized";

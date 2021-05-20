@@ -1,4 +1,4 @@
-function handleRewards(reward) {
+function handleRewards(reward, extra) {
     // console.log(reward);
     switch (reward) {
         case "Test":
@@ -18,6 +18,14 @@ function handleRewards(reward) {
         case "Change Lights to Red":
             console.log("Red lights redeemed")
             fetchToServer("red");
+            break;
+        case "Change Lights to Green":
+            console.log("Green lights redeemed")
+            fetchToServer("green");
+            break;
+        case "Test With Input":
+            console.log("Custom lights redeemed")
+            fetchToServer("custom/" + extra);
             break;
         case "Change Lights to Green":
             console.log("Green lights redeemed")

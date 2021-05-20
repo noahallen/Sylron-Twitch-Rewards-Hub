@@ -29,7 +29,7 @@
                     ComfyJS.onReward = async (user, reward, cost, extra) => {
                         console.log(user + " redeemed " + reward + " for " + cost);
                         document.getElementById("BodyID").innerHTML += user + " redeemed " + reward + " for " + cost + "<br/>";
-                        handleRewards(reward);
+                        handleRewards(reward, extra);
                     }
                 })();
 
