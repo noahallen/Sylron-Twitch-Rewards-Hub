@@ -36,6 +36,7 @@ function fetchToServer(fetchID) {
         .then(response => response.json())
         .then(obj => {
             console.log(obj.results);
+            document.getElementById("BodyID").innerHTML += obj.results + "<br/>";
         })
         .catch(err => console.log(err));
 }

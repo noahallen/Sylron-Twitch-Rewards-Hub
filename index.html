@@ -5,6 +5,7 @@
 </head>
 
 <body>
+    <div id="BodyID"></div>
     <script type="text/javascript">
         // // Authentication Instructions are at https://github.com/instafluff/ComfyJS#channel-point-reward-redemptions
 
@@ -15,6 +16,7 @@
         let twitchAuth;
         let channel;
         let clientId;
+        // let text;
 
         fetch("http://" + '127.0.0.1' + ":" + '3000' + "/" + "getTokens")
             .then(response => response.json())
@@ -26,6 +28,7 @@
                 (async () => {
                     ComfyJS.onReward = async (user, reward, cost, extra) => {
                         console.log(user + " redeemed " + reward + " for " + cost);
+                        document.getElementById("BodyID").innerHTML += user + " redeemed " + reward + " for " + cost + "<br/>";
                         handleRewards(reward);
                     }
                 })();
