@@ -47,19 +47,19 @@ const server = http.createServer((req, res) => {
         //Handles custom channel point redemption requests 
         else if (requested_data[0] == "blue") {
             var searchResults = "Color blue set";
-            displayColor(requested_data[0]);
+            displayCustomColor("blue");
             res.end(JSON.stringify({ 'results': searchResults }));
             console.log('Retrieved and sent');
         }
         else if (requested_data[0] == "red") {
             var searchResults = "Color red set";
-            displayColor(requested_data[0]);
+            displayCustomColor("red");
             res.end(JSON.stringify({ 'results': searchResults }));
             console.log('Retrieved and sent');
         }
         else if (requested_data[0] == "green") {
             var searchResults = "Color green set";
-            displayColor(requested_data[0]);
+            displayCustomColor("green");
             res.end(JSON.stringify({ 'results': searchResults }));
             console.log('Retrieved and sent');
         }
@@ -195,6 +195,7 @@ function displayCustomColor(colorName) {
         }
     };
 
+    console.log("Sending HSL: " + hsl)
     console.log("Sending effect request to Nanoleaf Lights");
     fetch("http://" + hostname + ":" + port + "/api/v1/" + auth_token + "/effects", {
         method: "PUT",
@@ -203,41 +204,6 @@ function displayCustomColor(colorName) {
 
 }
 
-
-//Sends custom color request to the Nanoleaf lights
-function displayColor(color) {
-    var hue;
-    if (color == "blue") {
-        hue = 210;
-    } else if (color == "red") {
-        hue = 0;
-    } else if (color == "green") {
-        hue = 150;
-    } else {
-        hue = 330;
-    }
-    var options = {
-        write: {
-            "command": "display",
-            "version": "2.0",
-            "animType": "static",
-            "colorType": "HSB",
-            "Palette": [
-                {
-                    "hue": hue,
-                    "saturation": 100,
-                    "brightness": 50
-                }
-            ],
-            "loop": false
-        }
-    };
-    console.log("Sending effect request to Nanoleaf Lights");
-    fetch("http://" + hostname + ":" + port + "/api/v1/" + auth_token + "/effects", {
-        method: "PUT",
-        body: JSON.stringify(options)
-    }).catch(err => console.log(err));
-}
 
 
 //Starts server to handle client requests
