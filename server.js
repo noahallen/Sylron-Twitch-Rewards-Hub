@@ -6,7 +6,7 @@ require('dotenv').config()
 const twitchAuth = process.env.TWITCHAUTH;
 const channel = process.env.CHANNEL;
 const clientId = process.env.CLIENTID;
-const auth_token = process.env.AUTHTOKEN;
+const auth_token = process.env.AUTH_TOKEN;
 const hostname = process.env.HOSTNAME;
 const port = 16021;
 
@@ -48,16 +48,19 @@ const server = http.createServer((req, res) => {
         else if (requested_data[0] == "blue") {
             var searchResults = "Color blue set";
             displayColor(requested_data[0]);
+            res.end(JSON.stringify({ 'results': searchResults }));
             console.log('Retrieved and sent');
         }
         else if (requested_data[0] == "red") {
             var searchResults = "Color red set";
             displayColor(requested_data[0]);
+            res.end(JSON.stringify({ 'results': searchResults }));
             console.log('Retrieved and sent');
         }
         else if (requested_data[0] == "green") {
             var searchResults = "Color green set";
             displayColor(requested_data[0]);
+            res.end(JSON.stringify({ 'results': searchResults }));
             console.log('Retrieved and sent');
         }
         //Send back error string

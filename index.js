@@ -32,12 +32,10 @@ function handleRewards(reward) {
 
 
 function fetchToServer(fetchID) {
-    fetch("http://" + '127.0.0.1' + ":" + '3000' + "/" + fetchID, {
-        method: "PUT"
-    })
-        // .then(response => response.json())
-        // .then(obj => {
-        //     console.log(obj.results);
-        // })
+    fetch("http://" + '127.0.0.1' + ":" + '3000' + "/" + fetchID)
+        .then(response => response.json())
+        .then(obj => {
+            console.log(obj.results);
+        })
         .catch(err => console.log(err));
 }
