@@ -40,6 +40,7 @@ const server = http.createServer((req, res) => {
         //Gets the env variables and returns them to the index.html page for ComfyJS
         if (requested_data[0] == "getTokens") {
             var searchResults = [twitchAuth, channel, clientId];
+            turnOnLights();
             res.end(JSON.stringify({ 'results': searchResults }));
             console.log('Retrieved and sent');
         }
@@ -105,7 +106,7 @@ function colorNameToHex(color) {
         "tan": "#d2b48c", "teal": "#008080", "thistle": "#d8bfd8", "tomato": "#ff6347", "turquoise": "#40e0d0",
         "violet": "#ee82ee",
         "wheat": "#f5deb3", "white": "#ffffff", "whitesmoke": "#f5f5f5",
-        "yellow": "#ffff00", "yellowgreen": "#9acd32"
+        "yellow": "#ffff00", "yellowgreen": "#9acd32", "orengeguy": "#ff6600", "drshadow": "#9a0000",
     };
 
     if (typeof colors[color.toLowerCase()] != 'undefined') {
@@ -113,6 +114,19 @@ function colorNameToHex(color) {
     } else {
         return colors["blue"];
     }
+}
+
+
+function turnOnLights() {
+    fetch("http://" + hostname + ":" + port + "/api/v1/" + auth_token + "/state", {
+        headers: { 'Content-Type': 'application/json' },
+        method: "PUT",
+        body: JSON.stringify({
+            "on": {
+                "value": true
+            }
+        })
+    }).catch(err => console.log(err));
 }
 
 function hexToRgb(hex) {
@@ -178,29 +192,77 @@ function displayCustomColor(colorName) {
     var hsl = rgbToHSL(rgbArr);
 
     //Then send [h, s, b] put request to lights
-    var options = {
-        write: {
-            "command": "display",
-            "version": "2.0",
-            "animType": "static",
-            "colorType": "HSB",
-            "Palette": [
-                {
-                    "hue": hsl[0],
-                    "saturation": hsl[1],
-                    "brightness": hsl[2]
-                }
-            ],
-            "loop": false
-        }
-    };
-
+    // var options = {
+    //     write: {
+    //         "command": "display",
+    //         "version": "2.0",
+    //         "animType": "static",
+    //         "colorType": "HSB",
+    //         "Palette": [
+    //             {
+    //                 "hue": hsl[0],
+    //                 "saturation": hsl[1],
+    //                 "brightness": hsl[2]
+    //             }
+    //         ],
+    //         "loop": false
+    //     }
+    // };
+    //curl --location --request PUT 'http://192.168.1.22:16021/api/v1/UZkR09wEOQoqwxVHgNwcQGmnswMUJh05/state' \ --data-raw '{"hue" : {"value":120}}'
     console.log("Sending HSL: " + hsl)
     console.log("Sending effect request to Nanoleaf Lights");
-    fetch("http://" + hostname + ":" + port + "/api/v1/" + auth_token + "/effects", {
+
+    fetch("http://" + hostname + ":" + port + "/api/v1/" + auth_token + "/state", {
         method: "PUT",
-        body: JSON.stringify(options)
+        body: JSON.stringify({
+            "hue": {
+                "value": hsl[0]
+            }
+        })
     }).catch(err => console.log(err));
+
+    fetch("http://" + hostname + ":" + port + "/api/v1/" + auth_token + "/state", {
+        method: "PUT",
+        body: JSON.stringify({
+            "sat": {
+                "value": hsl[1]
+            }
+        })
+    }).catch(err => console.log(err));
+
+    fetch("http://" + hostname + ":" + port + "/api/v1/" + auth_token + "/state", {
+        method: "PUT",
+        body: JSON.stringify({
+            "brightness": {
+                "value": hsl[2]
+            }
+        })
+    }).catch(err => console.log(err));
+
+
+
+
+    // fetch("http://" + hostname + ":" + port + "/api/v1/" + auth_token + "/state", {
+    //     method: "PUT",
+    //     body: JSON.stringify({
+    //         "brightness": {
+    //             "value": hsl[2]
+    //         },
+    //         "sat": {
+    //             "value": hsl[1]
+    //         },
+    //         "hue": {
+    //             "value": hsl[0]
+    //         }
+    //     })
+    // }).catch(err => console.log(err));
+
+
+
+    // fetch("http://" + hostname + ":" + port + "/api/v1/" + auth_token + "/effects", {
+    //     method: "PUT",
+    //     body: { "brightness": { "value": hsl[2] } }
+    // }).catch(err => console.log(err));
 
 }
 
