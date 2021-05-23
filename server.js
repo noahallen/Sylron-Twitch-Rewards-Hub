@@ -150,7 +150,7 @@ function rgbToHsv(r, g, b) {
         h /= 6;
     }
 
-    return [h, s, v];
+    return [Math.round(h) * 360, Math.round(s) * 100, Math.round(v) * 100];
 }
 
 function hexToRgb(hex) {
@@ -214,7 +214,7 @@ function displayCustomColor(colorName) {
 
     //Then [r, g, b] to [h, s, b]
     var hsv = rgbToHsv(rgbArr[0], rgbArr[1], rgbArr[2]);
-
+    console.log(hsv);
     //Then send [h, s, b] put request to lights
     // var options = {
     //     write: {
