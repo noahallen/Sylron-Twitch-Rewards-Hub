@@ -129,6 +129,30 @@ function turnOnLights() {
     }).catch(err => console.log(err));
 }
 
+function rgbToHsv(r, g, b) {
+    r /= 255, g /= 255, b /= 255;
+
+    var max = Math.max(r, g, b), min = Math.min(r, g, b);
+    var h, s, v = max;
+
+    var d = max - min;
+    s = max == 0 ? 0 : d / max;
+
+    if (max == min) {
+        h = 0; // achromatic
+    } else {
+        switch (max) {
+            case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+            case g: h = (b - r) / d + 2; break;
+            case b: h = (r - g) / d + 4; break;
+        }
+
+        h /= 6;
+    }
+
+    return [h, s, v];
+}
+
 function hexToRgb(hex) {
     var bigint = parseInt(hex, 16);
     var r = (bigint >> 16) & 255;
@@ -189,7 +213,7 @@ function displayCustomColor(colorName) {
 
 
     //Then [r, g, b] to [h, s, b]
-    var hsl = rgbToHSL(rgbArr);
+    var hsv = rgbToHsv(rgbArr[0], rgbArr[1], rgbArr[2]);
 
     //Then send [h, s, b] put request to lights
     // var options = {
@@ -209,14 +233,14 @@ function displayCustomColor(colorName) {
     //     }
     // };
     //curl --location --request PUT 'http://192.168.1.22:16021/api/v1/UZkR09wEOQoqwxVHgNwcQGmnswMUJh05/state' \ --data-raw '{"hue" : {"value":120}}'
-    console.log("Sending HSL: " + hsl)
+    console.log("Sending HSV: " + hsv)
     console.log("Sending effect request to Nanoleaf Lights");
 
     fetch("http://" + hostname + ":" + port + "/api/v1/" + auth_token + "/state", {
         method: "PUT",
         body: JSON.stringify({
             "hue": {
-                "value": hsl[0]
+                "value": hsv[0]
             }
         })
     }).catch(err => console.log(err));
@@ -225,7 +249,7 @@ function displayCustomColor(colorName) {
         method: "PUT",
         body: JSON.stringify({
             "sat": {
-                "value": hsl[1]
+                "value": hsv[1]
             }
         })
     }).catch(err => console.log(err));
@@ -234,7 +258,7 @@ function displayCustomColor(colorName) {
         method: "PUT",
         body: JSON.stringify({
             "brightness": {
-                "value": hsl[2]
+                "value": hsv[2]
             }
         })
     }).catch(err => console.log(err));
