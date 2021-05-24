@@ -106,7 +106,7 @@ function colorNameToHex(color) {
         "tan": "#d2b48c", "teal": "#008080", "thistle": "#d8bfd8", "tomato": "#ff6347", "turquoise": "#40e0d0",
         "violet": "#ee82ee",
         "wheat": "#f5deb3", "white": "#ffffff", "whitesmoke": "#f5f5f5",
-        "yellow": "#ffff00", "yellowgreen": "#9acd32", "orengeguy": "#ff6600", "drshadow": "#9a0000",
+        "yellow": "#ffff00", "yellowgreen": "#9acd32", "orengeguy": "#ff6600", "drshadow": "#dc043c",
     };
 
     if (typeof colors[color.toLowerCase()] != 'undefined') {
@@ -221,53 +221,12 @@ function displayCustomColor(colorName) {
     var hsv = rgbToHsv(rgbArr[0], rgbArr[1], rgbArr[2]);
     console.log(hsv);
     //Then send [h, s, b] put request to lights
-    // var options = {
-    //     write: {
-    //         "command": "display",
-    //         "version": "2.0",
-    //         "animType": "static",
-    //         "colorType": "HSB",
-    //         "Palette": [
-    //             {
-    //                 "hue": hsl[0],
-    //                 "saturation": hsl[1],
-    //                 "brightness": hsl[2]
-    //             }
-    //         ],
-    //         "loop": false
-    //     }
-    // };
-    //curl --location --request PUT 'http://192.168.1.22:16021/api/v1/UZkR09wEOQoqwxVHgNwcQGmnswMUJh05/state' \ --data-raw '{"hue" : {"value":120}}'
+
+
+
+
     console.log("Sending HSV: " + hsv)
     console.log("Sending effect request to Nanoleaf Lights");
-
-    // fetch("http://" + hostname + ":" + port + "/api/v1/" + auth_token + "/state", {
-    //     method: "PUT",
-    //     body: JSON.stringify({
-    //         "hue": {
-    //             "value": hsv[0]
-    //         }
-    //     })
-    // }).catch(err => console.log(err));
-
-    // fetch("http://" + hostname + ":" + port + "/api/v1/" + auth_token + "/state", {
-    //     method: "PUT",
-    //     body: JSON.stringify({
-    //         "sat": {
-    //             "value": hsv[1]
-    //         }
-    //     })
-    // }).catch(err => console.log(err));
-
-    // fetch("http://" + hostname + ":" + port + "/api/v1/" + auth_token + "/state", {
-    //     method: "PUT",
-    //     body: JSON.stringify({
-    //         "brightness": {
-    //             "value": hsv[2]
-    //         }
-    //     })
-    // }).catch(err => console.log(err));
-
 
 
 
