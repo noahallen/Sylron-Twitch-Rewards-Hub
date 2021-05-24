@@ -111,6 +111,8 @@ function colorNameToHex(color) {
 
     if (typeof colors[color.toLowerCase()] != 'undefined') {
         return colors[color.toLowerCase()];
+    } else if (color.toLowerCase() == "black") {
+        return colors[Object.Keys[Math.floor(Math.random() * 141)]]
     } else {
         return colors["blue"];
     }
