@@ -241,50 +241,50 @@ function displayCustomColor(colorName) {
     console.log("Sending HSV: " + hsv)
     console.log("Sending effect request to Nanoleaf Lights");
 
-    fetch("http://" + hostname + ":" + port + "/api/v1/" + auth_token + "/state", {
-        method: "PUT",
-        body: JSON.stringify({
-            "hue": {
-                "value": hsv[0]
-            }
-        })
-    }).catch(err => console.log(err));
+    // fetch("http://" + hostname + ":" + port + "/api/v1/" + auth_token + "/state", {
+    //     method: "PUT",
+    //     body: JSON.stringify({
+    //         "hue": {
+    //             "value": hsv[0]
+    //         }
+    //     })
+    // }).catch(err => console.log(err));
 
-    fetch("http://" + hostname + ":" + port + "/api/v1/" + auth_token + "/state", {
-        method: "PUT",
-        body: JSON.stringify({
-            "sat": {
-                "value": hsv[1]
-            }
-        })
-    }).catch(err => console.log(err));
+    // fetch("http://" + hostname + ":" + port + "/api/v1/" + auth_token + "/state", {
+    //     method: "PUT",
+    //     body: JSON.stringify({
+    //         "sat": {
+    //             "value": hsv[1]
+    //         }
+    //     })
+    // }).catch(err => console.log(err));
+
+    // fetch("http://" + hostname + ":" + port + "/api/v1/" + auth_token + "/state", {
+    //     method: "PUT",
+    //     body: JSON.stringify({
+    //         "brightness": {
+    //             "value": hsv[2]
+    //         }
+    //     })
+    // }).catch(err => console.log(err));
+
+
+
 
     fetch("http://" + hostname + ":" + port + "/api/v1/" + auth_token + "/state", {
         method: "PUT",
         body: JSON.stringify({
             "brightness": {
                 "value": hsv[2]
+            },
+            "sat": {
+                "value": hsv[1]
+            },
+            "hue": {
+                "value": hsv[0]
             }
         })
     }).catch(err => console.log(err));
-
-
-
-
-    // fetch("http://" + hostname + ":" + port + "/api/v1/" + auth_token + "/state", {
-    //     method: "PUT",
-    //     body: JSON.stringify({
-    //         "brightness": {
-    //             "value": hsl[2]
-    //         },
-    //         "sat": {
-    //             "value": hsl[1]
-    //         },
-    //         "hue": {
-    //             "value": hsl[0]
-    //         }
-    //     })
-    // }).catch(err => console.log(err));
 
 
 
