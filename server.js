@@ -109,10 +109,13 @@ function colorNameToHex(color) {
         "yellow": "#ffff00", "yellowgreen": "#9acd32", "orengeguy": "#ff6600", "drshadow": "#9a0000",
     };
 
-    if (color.toLowerCase() == "black") {
-        return colors[Object.Keys(colors)[Math.floor(Math.random() * 141)]]
-    } else if (typeof colors[color.toLowerCase()] != 'undefined') {
-        return colors[color.toLowerCase()];
+    if (typeof colors[color.toLowerCase()] != 'undefined') {
+        if (color.toLowerCase() == "black") {
+            return colors[Object.keys(colors)[Math.floor(Math.random() * colors.length)]]
+        }
+        else {
+            return colors[color.toLowerCase()];
+        }
     } else {
         return colors["blue"];
     }
